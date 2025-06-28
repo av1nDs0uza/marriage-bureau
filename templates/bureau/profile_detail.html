@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-10 bg-white shadow rounded">
+
+  <div class="flex flex-col md:flex-row gap-6">
+    <img src="{{ profile.get_main_image_url }}" alt="Profile Image" class="w-48 h-64 object-cover rounded shadow">
+    <div>
+      <h1 class="text-2xl font-bold">{{ profile.full_name }}</h1>
+      <p>{{ profile.gender }} | {{ profile.height }} | {{ profile.caste }}</p>
+      <p>Born on {{ profile.dob }} at {{ profile.birth_place }} - {{ profile.birth_time }}</p>
+    </div>
+  </div>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Contact</h2>
+  <p>WhatsApp: {{ profile.whatsapp_number }}</p>
+  <p>Phone 1: {{ profile.phone_number_1 }}</p>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Education & Work</h2>
+  <p>Education: {{ profile.education }}</p>
+  <p>Profession: {{ profile.profession }}</p>
+  <p>Income: ₹{{ profile.monthly_income }}</p>
+  <p>Job Address: {{ profile.job_address }}</p>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Family</h2>
+  <p>Father: {{ profile.father_name }} ({{ profile.father_alive|yesno:"Alive,Deceased" }})</p>
+  <p>Mother: {{ profile.mother_name }} ({{ profile.mother_alive|yesno:"Alive,Deceased" }})</p>
+  <p>Brothers: {{ profile.brothers }} ({{ profile.brothers_married }} married)</p>
+  <p>Sisters: {{ profile.sisters }} ({{ profile.sisters_married }} married)</p>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Religion & Culture</h2>
+  <p>Religion: {{ profile.religion }}</p>
+  <p>Subcaste: {{ profile.subcaste }}</p>
+  <p>Gotra: {{ profile.gotra }}</p>
+  <p>Kuldaivat: {{ profile.kuldaivat }}</p>
+  <p>Deity: {{ profile.deity }}</p>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Preferences</h2>
+  <p>Preferred Marriage Type: {{ profile.preferred_marriage_type }}</p>
+  <p>Manglik: {{ profile.manglik_status }}</p>
+
+  <hr class="my-6">
+
+  <h2 class="text-xl font-semibold mb-2">Images</h2>
+  <div class="flex gap-4">
+    {% if profile.image_1 %}<img src="{{ profile.image_1.url }}" class="w-32 h-32 object-cover rounded">{% endif %}
+    {% if profile.image_2 %}<img src="{{ profile.image_2.url }}" class="w-32 h-32 object-cover rounded">{% endif %}
+    {% if profile.image_3 %}<img src="{{ profile.image_3.url }}" class="w-32 h-32 object-cover rounded">{% endif %}
+  </div>
+
+  <div class="mt-6">
+    <a href="#" onclick="window.print()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      Print / Download as PDF
+    </a>
+  </div>
+
+</div>
+{% endblock %}

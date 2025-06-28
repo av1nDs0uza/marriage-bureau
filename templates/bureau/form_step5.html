@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post"
+      enctype="multipart/form-data"
+      class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow-md space-y-6"
+      x-data>
+  
+  {% csrf_token %}
+  {{ wizard.management_form }}
+
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Step 5: Declaration, Address & Photos</h2>
+
+  <!-- Declaration Section -->
+  <div class="space-y-4">
+    <h3 class="text-lg font-medium text-gray-700 border-b pb-1">Declaration</h3>
+
+    <div class="flex items-start space-x-2">
+      {% render_field wizard.form.declaration class="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %}
+      <label for="{{ wizard.form.declaration.id_for_label }}" class="text-sm text-gray-700">
+        {{ wizard.form.declaration.label }}
+      </label>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="{{ wizard.form.declaration_name.id_for_label }}" class="block text-sm font-medium text-gray-700">Full Name</label>
+        {% render_field wizard.form.declaration_name class="w-full border rounded p-2" %}
+      </div>
+      <div>
+        <label for="{{ wizard.form.declaration_phone.id_for_label }}" class="block text-sm font-medium text-gray-700">Phone</label>
+        {% render_field wizard.form.declaration_phone class="w-full border rounded p-2" %}
+      </div>
+      <div class="sm:col-span-2">
+        <label for="{{ wizard.form.declaration_date.id_for_label }}" class="block text-sm font-medium text-gray-700">Date</label>
+        {% render_field wizard.form.declaration_date class="w-full border rounded p-2" %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Section -->
+  <div class="space-y-4">
+    <h3 class="text-lg font-medium text-gray-700 border-b pb-1">Address & Other Info</h3>
+
+    <div>
+      <label for="{{ wizard.form.residential_address.id_for_label }}" class="block text-sm font-medium text-gray-700">Residential Address</label>
+      {% render_field wizard.form.residential_address class="w-full border rounded p-2" %}
+    </div>
+    <div>
+      <label for="{{ wizard.form.other_info.id_for_label }}" class="block text-sm font-medium text-gray-700">Other Info (Optional)</label>
+      {% render_field wizard.form.other_info class="w-full border rounded p-2" %}
+    </div>
+  </div>
+
+  <!-- Image Uploads -->
+  <div class="space-y-4">
+    <h3 class="text-lg font-medium text-gray-700 border-b pb-1">Upload Images</h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div>
+        <label for="{{ wizard.form.profile_image.id_for_label }}" class="block text-sm font-medium text-gray-700">Profile Image</label>
+        {% render_field wizard.form.profile_image class="w-full border rounded p-2 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %}
+      </div>
+      <div>
+        <label for="{{ wizard.form.aadhar_image.id_for_label }}" class="block text-sm font-medium text-gray-700">Aadhar Image </label>
+        {% render_field wizard.form.aadhar_image class="w-full border rounded p-2 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %}
+      </div>
+      <div>
+        <label for="{{ wizard.form.supporting_document.id_for_label }}" class="block text-sm font-medium text-gray-700">Supporting_document</label>
+        {% render_field wizard.form.supporting_document class="w-full border rounded p-2 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-6 border-t">
+  {% if wizard.steps.prev %}
+    <button name="wizard_goto_step"
+            value="{{ wizard.steps.prev }}"
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded">
+      ← Back
+    </button>
+  {% endif %}
+  <button type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow">
+    Next →
+  </button>
+</div>
+</form>
+{% endblock %}

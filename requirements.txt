@@ -1,0 +1,7 @@
+django
+django-allauth
+django-htmx
+django-storages
+boto3
+weasyprint
+psycopg2-binary

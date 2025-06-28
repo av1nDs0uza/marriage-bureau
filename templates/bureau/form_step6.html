@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post"
+      class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow-md space-y-6"
+      x-data>
+
+  {% csrf_token %}
+  {{ wizard.management_form }}
+
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Step 6: Terms & Conditions</h2>
+
+  <div class="prose max-w-none text-sm text-gray-800 leading-relaxed space-y-4">
+    <p><strong>Vivah Bandhan</strong> and its branches operate under a single authorized name for all matchmaking services.</p>
+
+    <ul class="list-disc pl-5">
+      <li>Acceptance or rejection of any profile/biodata is the applicant's own decision. Apply thoughtfully.</li>
+      <li>All information and documents provided must be accurate, complete, and true to the best of your knowledge.</li>
+      <li>Recent and clear photographs are mandatory. Blurred or unrelated images will be rejected.</li>
+      <li>Only one profile per person is allowed. Duplicate submissions will not be accepted.</li>
+      <li>If you find a match through us and proceed to marriage, it is compulsory to inform the center and cancel your listing. Failure to do so may result in a ₹500 penalty.</li>
+      <li><strong>Important:</strong> The center is not responsible for any financial, dowry-related, or legal issues that may arise between parties. It is the applicant's responsibility to verify everything personally.</li>
+      <li>All documents (like education proof, caste certificate, job/income details) must be self-verified. The center only serves as a platform for introductions.</li>
+      <li>No refunds are issued once registered.</li>
+      <li>The organization reserves the right to remove any member without notice if rules are violated.</li>
+      <li>Vivah Bandhan does not guarantee matches or marriages. It only facilitates introductions based on preferences.</li>
+      <li>We aim to offer quality service within our available time and capacity.</li>
+      <li>Any issues with a branch should be reported to the Main Office immediately.</li>
+      <li>To participate in any matchmaking events, pre-registration is required.</li>
+    </ul>
+
+    <p>By submitting your profile, you confirm that you have read, understood, and agreed to these terms.</p>
+  </div>
+
+  <div class="mt-4">
+    <label class="flex items-start space-x-2">
+      {% render_field wizard.form.accept class="h-4 w-4 mt-1 text-blue-600 border-gray-300 rounded" %}
+      <span class="text-sm text-gray-700">
+        {{ wizard.form.accept.label }}
+      </span>
+    </label>
+    {% if wizard.form.accept.errors %}
+      <p class="text-red-600 text-sm mt-1">{{ wizard.form.accept.errors|striptags }}</p>
+    {% endif %}
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-6 border-t">
+    {% if wizard.steps.prev %}
+      <button name="wizard_goto_step"
+              value="{{ wizard.steps.prev }}"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded">
+        ← Back
+      </button>
+    {% endif %}
+    <button type="submit"
+            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded shadow">
+      Submit Form →
+    </button>
+  </div>
+</form>
+{% endblock %}

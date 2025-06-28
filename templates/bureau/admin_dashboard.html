@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+  <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+  <form method="GET" class="mb-6">
+    <input type="text" name="q" placeholder="Search by name or caste"
+           value="{{ query }}" class="border p-2 rounded w-full md:w-1/2">
+  </form>
+
+  <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {% for profile in profiles %}
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <img src="{{ profile.get_main_image_url }}" class="h-56 w-full object-cover" alt="{{ profile.full_name }}">
+      <div class="p-4">
+        <h2 class="text-xl font-semibold">{{ profile.full_name }}</h2>
+        <p class="text-sm text-gray-600">{{ profile.gender }} | {{ profile.height }} | {{ profile.caste }}</p>
+        <p class="text-sm text-gray-600">Branch: {{ profile.branch }}</p>
+        <a href="{% url 'profile_detail' profile.pk %}" class="mt-2 inline-block text-pink-600 hover:underline">
+          View Full Profile →
+        </a>
+      </div>
+    </div>
+    {% empty %}
+      <p>No profiles found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post"
+      enctype="multipart/form-data"
+      class="max-w-3xl mx-auto mt-10 bg-white p-6 rounded shadow-md space-y-6"
+      x-data>
+  
+  {% csrf_token %}
+  {{ wizard.management_form }}
+
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Step 4: Horoscope & Marriage Preferences</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div>
+      <label for="{{ wizard.form.raasi.id_for_label }}" class="block text-sm font-medium text-gray-700">Raasi</label>
+      {% render_field wizard.form.raasi class="w-full border rounded p-2" %}
+    </div>
+    <div>
+      <label for="{{ wizard.form.horoscope_nakshatra.id_for_label }}" class="block text-sm font-medium text-gray-700">Nakshatra</label>
+      {% render_field wizard.form.horoscope_nakshatra class="w-full border rounded p-2" %}
+    </div>
+    <div>
+      <label for="{{ wizard.form.gan.id_for_label }}" class="block text-sm font-medium text-gray-700">Gan</label>
+      {% render_field wizard.form.gan class="w-full border rounded p-2" %}
+    </div>
+    <div>
+      <label for="{{ wizard.form.nadi.id_for_label }}" class="block text-sm font-medium text-gray-700">Nadi</label>
+      {% render_field wizard.form.nadi class="w-full border rounded p-2" %}
+    </div>
+    <div>
+      <label for="{{ wizard.form.charan.id_for_label }}" class="block text-sm font-medium text-gray-700">Charan</label>
+      {% render_field wizard.form.charan class="w-full border rounded p-2" %}
+    </div>
+
+    <!-- Horoscope Seen Checkbox -->
+    <div class="flex items-center space-x-2 pt-6">
+      {% render_field wizard.form.horoscope_seen class="h-4 w-4 text-blue-600 border-gray-300 rounded" %}
+      <label for="{{ wizard.form.horoscope_seen.id_for_label }}" class="text-sm text-gray-700">Horoscope Seen?</label>
+    </div>
+
+    <!-- Manglik Status Radio -->
+    <div class="sm:col-span-2">
+        <span class="block text-sm font-medium text-gray-700 mb-1">Manglik Status</span>
+        <div class="flex flex-wrap gap-4">
+        {% for radio in wizard.form.manglik_status %}
+        {% if radio.choice_label != '---------' %}
+            <label class="inline-flex items-center space-x-2">
+          {{ radio.tag }}
+          <span class="text-gray-700">{{ radio.choice_label }}</span>
+        </label>
+        {% endif %}
+        {% endfor %}
+            </div>
+        </div>
+
+
+    <!-- Preferred Marriage Type Dropdown -->
+    <div class="sm:col-span-2">
+      <label for="{{ wizard.form.preferred_marriage_type.id_for_label }}" class="block text-sm font-medium text-gray-700">Preferred Marriage Type</label>
+      {% render_field wizard.form.preferred_marriage_type class="w-full border rounded p-2" %}
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex justify-between items-center pt-6 border-t">
+    {% if wizard.steps.prev %}
+      <button name="wizard_goto_step"
+              value="{{ wizard.steps.prev }}"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded">
+        ← Back
+      </button>
+    {% endif %}
+    <button type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow">
+      Continue →
+    </button>
+  </div>
+</form>
+{% endblock %}
